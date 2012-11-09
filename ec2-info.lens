@@ -1,0 +1,11 @@
+[Lens]
+DBusName=unity.singlet.lens.ec2_info
+DBusPath=/unity/singlet/lens/ec2_info
+Name=EC2 Info
+Icon=/usr/share/unity/lenses/ec2_info/unity-lens-ec2_info.svg
+Description=EC2 Info Lens
+SearchHint=Search EC2 Instances
+Shortcut=e
+
+[Desktop Entry]
+X-Ubuntu-Gettext-Domain=ec2-info
