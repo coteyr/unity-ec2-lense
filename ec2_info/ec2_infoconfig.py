@@ -16,15 +16,15 @@ __all__ = [
 
 # Where your project will look for your data (for instance, images and ui
 # files). By default, this is ../data, relative your trunk layout
-__ec2_info_data_directory__ = '../data/'
+__ec2_info_data_directory__ = '/usr/share/ec2-info/'
 __license__ = ''
-__version__ = 'VERSION'
+__version__ = '0.1'
 
 import os
 
-import gettext
-from gettext import gettext as _
-gettext.textdomain('ec2-info')
+import locale
+from locale import gettext as _
+locale.textdomain('ec2-info')
 
 class project_path_not_found(Exception):
     """Raised when we can't find the project directory."""

@@ -1,3 +1,4 @@
 project = ec2-info
 version = 12.08.1
 template = unity-lens
+version_ubuntu-application = 12.08.1

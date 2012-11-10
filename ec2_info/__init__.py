@@ -7,9 +7,9 @@ from os.path import expanduser
 from datetime import datetime, timedelta
 
 
-import gettext
-from gettext import gettext as _
-gettext.textdomain('ec2-info')
+import locale
+from locale import gettext as _
+locale.textdomain('ec2-info')
 
 from singlet.lens import SingleScopeLens, IconViewCategory, ListViewCategory
 
