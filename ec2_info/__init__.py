@@ -3,6 +3,7 @@ import optparse
 import yaml
 import subprocess
 import glob
+
 from os.path import expanduser
 from datetime import datetime, timedelta
 
@@ -50,7 +51,7 @@ class Ec2InfoLens(SingleScopeLens):
             for reservation in result['reservationSet']:
                 #print(reservation['instancesSet'])
                 for instance in reservation['instancesSet']:
-                    #print(instance)
+                    print(instance)
                     instanceID = instance["instanceId"]
                     instanceState = instance["instanceState"]["name"]
                     try:
@@ -62,6 +63,10 @@ class Ec2InfoLens(SingleScopeLens):
                     except:
                         instancePIP = "No Private IP"
                     try:
+                        instacePlatform = instance["platform"]
+                    except:
+                        instacePlatform = "linux"
+                    try:
                         for tag in instance["tagSet"]:
                             if tag["key"] == "Name":
                                 instanceName = tag["value"]
@@ -71,7 +76,7 @@ class Ec2InfoLens(SingleScopeLens):
                         instanceName = "Unknown"
                     if search in instanceName or search in name:
                         if instanceState == "running":
-                            results.append(instanceIP,
+                            results.append("%s:%s" % (instacePlatform, instanceIP),
                                  'network-server',
                                  self.running_hosts_category,
                                  "plain/text",
@@ -79,7 +84,7 @@ class Ec2InfoLens(SingleScopeLens):
                                  "%s : %s" % (instanceID, instanceIP),
                                  instancePIP)
                         else:
-                            results.append(instanceIP,
+                            results.append("%s:%s" % (instacePlatform, instanceIP),
                                  'dialog-error',
                                  self.stopped_hosts_category,
                                  "plain/text",
@@ -89,6 +94,13 @@ class Ec2InfoLens(SingleScopeLens):
         pass
 
     def handle_uri(self, scope, uri):
+        ip = uri.partition(':')[2]
+        platform = uri.partition(':')[0]
+        print(platform)
+        print(ip)
         if uri != "No IP":
-            subprocess.Popen(["gnome-terminal", "--window", "-e", "ssh %s" % uri])
+            if platform != "windows":
+                subprocess.Popen(["gnome-terminal", "--window", "-e", "ssh %s" % uri])
+            else:
+                subprocess.Popen(["remmina", "-n", "-s", ip, "-t", "rdp"])
         return self.hide_dash_response()
