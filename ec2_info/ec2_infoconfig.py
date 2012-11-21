@@ -18,7 +18,7 @@ __all__ = [
 # files). By default, this is ../data, relative your trunk layout
 __ec2_info_data_directory__ = '/usr/share/ec2-info/'
 __license__ = ''
-__version__ = '0.2'
+__version__ = '0.1'
 
 import os
 

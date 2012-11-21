@@ -101,7 +101,7 @@ class Ec2InfoLens(SingleScopeLens):
         print(ip)
         if ip != "No IP":  # skip the offline hosts
             if platform != "windows":
-                subprocess.Popen(["gnome-terminal", "--window", "-e", "ssh %s" % uri])
+                subprocess.Popen(["gnome-terminal", "--window", "-e", "ssh %s" % ip])
             else:
                 subprocess.Popen(["remmina", "-n", "-s", ip, "-t", "rdp"])
         return self.hide_dash_response()
